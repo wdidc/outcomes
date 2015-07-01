@@ -2,6 +2,8 @@ var express = require("express")
 var app = express()
 var session = require("express-session")
 var User = require("./models/user")
+var Assignment = require("./models/assignment")
+var Submission = require("./models/submission")
 app.set('view engine','hbs')
 app.use(express.static('public'))
 app.use(session({
@@ -12,8 +14,11 @@ app.use(session({
 
 app.get("/", function(req, res){
   if(req.session.role == "student"){
-    res.render("student",{
-      currentUser: req.session.currentUser 
+    Assignment.all(function(assignments){
+      res.render("student",{
+	currentUser: req.session.currentUser,
+	assignments: assignments
+      })
     })
   }else{
     res.render("index")
@@ -26,6 +31,24 @@ app.get("/sessionize", function(req,res){
     req.session.role = "student"
     res.redirect("/")
   })
+})
+
+app.get("/:id", function(req,res){
+ if(req.session.role == "student"){
+   Assignment(req.params.id, function(assignment){
+     Submission.find(assignment.id, 11844601, function(submission){
+       res.render("form",{
+	 currentUser: req.session.currentUser,
+	 assignment: assignment,
+	 submission: submission
+       }) 
+     })
+   })
+ } 
+})
+
+app.post("/:id/submissions", function(req, res){
+  Submission
 })
 
 app.get("/logout", function(req, res){
