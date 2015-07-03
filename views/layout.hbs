@@ -1,8 +1,14 @@
 <!doctype html>
 <html>
-  <head></head>
+  <head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  </head>
   <body>
     <h1><a href='/'>Outcomes</a></h1>
+    {{#if currentUser }}
+      <a href='/logout'>Log Out {{currentUser.name}}</a>
+    {{/if}}
     {{{body}}}
     <script src="/js/app.js"></script>
   </body>
