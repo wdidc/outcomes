@@ -58,8 +58,7 @@ app.post("/assignments/:assignmentId/submissions/:id", function(req, res){
     id: req.params.id,
     accessToken: req.session.accessToken
   }, function(submission){
-    res.send(submission)
-    //res.redirect("/assignments/"+ req.params.assignmentId ) 
+    res.redirect("/assignments/"+ req.params.assignmentId ) 
   })
 })
 
