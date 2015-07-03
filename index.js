@@ -33,7 +33,7 @@ app.get("/sessionize", function(req,res){
   })
 })
 
-app.get("/:id", function(req,res){
+app.get("/assignments/:id", function(req,res){
  if(req.session.role == "student"){
    Assignment(req.params.id, function(assignment){
      Submission.find(assignment.id, 11844601, function(submission){

@@ -1,8 +1,12 @@
 var request = require("request")
 var Assignment = function(id, callback){
-  request("http://api.wdidc.org/assignments/"+id+".json", function(err,res,body){
-    callback(JSON.parse(body)) 
-  })
+  try{ 
+    request("http://api.wdidc.org/assignments/"+id+".json", function(err,res,body){
+      callback(JSON.parse(body)) 
+    })
+  } catch(e){
+    callback(e)
+  }
 }
 
 Assignment.all = function(callback){
