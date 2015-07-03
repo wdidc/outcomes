@@ -9,6 +9,21 @@ var Submission = {
 	}
       }
     })
+  }, 
+  update: function(opts, callback){
+    var url = "http://api.wdidc.org/assignments/"+opts.assignmentId+"/submissions/"+opts.id + "?access_token="+opts.accessToken+"&api_token="+process.env['ASSIGNMENTS_API_TOKEN'] 
+    console.log(url)
+    request({
+      url: url,
+      method: "patch",
+      form: {
+        submission:{
+          status: opts.status 		   
+        }
+      }
+    }, function(err, res, body){
+      callback(body)
+    }) 
   }
 }
 module.exports = Submission

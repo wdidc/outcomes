@@ -1,5 +1,8 @@
 var express = require("express")
 var app = express()
+var bodyParser = require("body-parser")
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 var session = require("express-session")
 var User = require("./models/user")
 var Assignment = require("./models/assignment")
@@ -26,6 +29,7 @@ app.get("/", function(req, res){
 })
 
 app.get("/sessionize", function(req,res){
+  req.session.accessToken = req.query.accessToken
   var user = User(req.query.accessToken, function( user ){
     req.session.currentUser = user
     req.session.role = "student"
@@ -47,8 +51,16 @@ app.get("/assignments/:id", function(req,res){
  } 
 })
 
-app.post("/:id/submissions", function(req, res){
-  Submission
+app.post("/assignments/:assignmentId/submissions/:id", function(req, res){
+  Submission.update({
+    status: req.body.status,
+    assignmentId: req.params.assignmentId,
+    id: req.params.id,
+    accessToken: req.session.accessToken
+  }, function(submission){
+    res.send(submission)
+    //res.redirect("/assignments/"+ req.params.assignmentId ) 
+  })
 })
 
 app.get("/logout", function(req, res){

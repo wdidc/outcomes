@@ -1,6 +1,5 @@
 <h2>{{assignment.title}}</h2>
-<form method="post" action="/{{assignment.id}}/submissions">
-  <input type="hidden" name="id" value="{{assignment.id}}">
+<form method="post" action="/assignments/{{assignment.id}}/submissions/{{submission.id}}">
   <input type="text" name="status" value="{{submission.status}}" placeholder="Enter URL...">
   <button>Save Submission</button>
 </form>
