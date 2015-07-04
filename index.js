@@ -1,4 +1,10 @@
 var express = require("express")
+var fs = require("fs")
+if(fs.existsSync("./env.js")){
+  env = require("./env")
+} else {
+  env = process.env
+}
 var app = express()
 var bodyParser = require("body-parser")
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -40,7 +46,7 @@ app.get("/sessionize", function(req,res){
 app.get("/assignments/:id", function(req,res){
  if(req.session.role == "student"){
    Assignment(req.params.id, function(assignment){
-     Submission.find(assignment.id, , function(submission){
+     Submission.find(assignment.id, req.session.currentUser.id, function(submission){
        res.render("form",{
 	 currentUser: req.session.currentUser,
 	 assignment: assignment,
