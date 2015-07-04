@@ -2,6 +2,11 @@ body{
   max-width:40em;
   margin:auto;
   font-family:'Helvetica Neue';
+  padding:2em;
+}
+
+a{
+  color:#3E78C0;
 }
 
 h1 a{
@@ -9,3 +14,22 @@ h1 a{
   text-decoration:none;
   border-bottom:1px dashed #000;
 }
+
+.assignments{
+  list-style:none;
+  padding:0;
+  margin:2em 0 0 0;
+}
+
+.assignments li{
+  padding:1em 0;
+  border-bottom:1px solid #ddd;
+}
+
+.assignments li a{
+  font-weight:bold;
+  text-decoration:none;
+  font-size:1.5em;
+  display:block;
+}
+
