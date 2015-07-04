@@ -40,7 +40,7 @@ app.get("/sessionize", function(req,res){
 app.get("/assignments/:id", function(req,res){
  if(req.session.role == "student"){
    Assignment(req.params.id, function(assignment){
-     Submission.find(assignment.id, 11844601, function(submission){
+     Submission.find(assignment.id, , function(submission){
        res.render("form",{
 	 currentUser: req.session.currentUser,
 	 assignment: assignment,

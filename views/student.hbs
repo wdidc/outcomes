@@ -3,7 +3,7 @@
   {{#each assignments}}
     <li>
       <a href='/assignments/{{this.id}}'>{{this.title}}</a>
-      <small>due {{this.due_date}}</small>
+      <small>due <span class='js-format-date'>{{this.due_date}}</span></small>
     </li>
   {{/each}}
 </ul>
