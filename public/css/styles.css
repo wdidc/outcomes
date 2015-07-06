@@ -33,3 +33,9 @@ h1 a{
   display:block;
 }
 
+.success{
+  background: #1FCE35;
+  font-weight:bold;
+  margin:1em 0;
+  padding:1em;
+}

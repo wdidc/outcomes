@@ -1,4 +1,11 @@
+{{#if success}}
+  <div class='success'>
+    Thank you! Your submission was saved successfully.
+  </div>
+{{/if}}
+
 <h2>{{assignment.title}}</h2>
+
 <form method="post" action="/assignments/{{assignment.id}}/submissions/{{submission.id}}">
   <input type="text" name="status" value="{{submission.status}}" placeholder="Enter URL...">
   <button>Save Submission</button>

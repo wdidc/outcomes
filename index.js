@@ -50,7 +50,8 @@ app.get("/assignments/:id", function(req,res){
        res.render("form",{
 	 currentUser: req.session.currentUser,
 	 assignment: assignment,
-	 submission: submission
+	 submission: submission,
+         success: req.query.success
        }) 
      })
    })
@@ -64,7 +65,7 @@ app.post("/assignments/:assignmentId/submissions/:id", function(req, res){
     id: req.params.id,
     accessToken: req.session.accessToken
   }, function(submission){
-    res.redirect("/assignments/"+ req.params.assignmentId ) 
+    res.redirect("/assignments/"+ req.params.assignmentId + "?success=true") 
   })
 })
 
