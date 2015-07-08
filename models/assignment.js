@@ -2,6 +2,7 @@ var request = require("request")
 var Assignment = function(id, callback){
   try{ 
     request("http://api.wdidc.org/assignments/"+id+".json", function(err,res,body){
+      console.log(body)
       callback(JSON.parse(body)) 
     })
   } catch(e){

@@ -39,3 +39,19 @@ h1 a{
   margin:1em 0;
   padding:1em;
 }
+
+.submission{
+  border-bottom: 1px solid #ccc;
+  padding:1em 0;
+}
+
+.submission h2{
+  margin-top:0;
+  font-size:1em;
+}
+
+.missing{
+  padding:.5em;
+  background: #FE442E;
+  color:#fff;
+}

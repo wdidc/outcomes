@@ -29,6 +29,13 @@ app.get("/", function(req, res){
 	assignments: assignments
       })
     })
+  }else if(req.session.role == "instructor"){
+    Assignment.all(function(assignments){
+      res.render("student",{
+	currentUser: req.session.currentUser,
+	assignments: assignments
+      })
+    })
   }else{
     res.render("index")
   }
@@ -38,13 +45,22 @@ app.get("/sessionize", function(req,res){
   req.session.accessToken = req.query.accessToken
   var user = User(req.query.accessToken, function( user ){
     req.session.currentUser = user
-    req.session.role = "student"
+    req.session.role = user.role
     res.redirect("/")
   })
 })
 
 app.get("/assignments/:id", function(req,res){
- if(req.session.role == "student"){
+ if(req.session.role == "instructor"){
+   Assignment(req.params.id, function(assignment){
+     Submission.all(assignment.id, function(submissions){
+       res.render("instructor",{
+	 assignment: assignment,
+         submissions: submissions
+       })
+     })
+   })
+ }else{
    Assignment(req.params.id, function(assignment){
      Submission.find(assignment.id, req.session.currentUser.id, function(submission){
        res.render("form",{

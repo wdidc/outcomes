@@ -1,0 +1,12 @@
+{{#each submissions}}
+<div class='submission'>
+  <h2>{{this.student_name}} </h2>
+  {{#if this.status}}
+    {{this.status}}
+  {{else}}
+    <div class='missing'>
+      Missing!
+    </div>
+  {{/if}}
+</div>
+{{/each}}
