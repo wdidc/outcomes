@@ -54,9 +54,21 @@ app.get("/assignments/:id", function(req,res){
  if(req.session.role == "instructor"){
    Assignment(req.params.id, function(assignment){
      Submission.all(assignment.id, function(submissions){
+       var stats = {complete:0, incomplete:0} 
+       for(var i = 0; i < submissions.length; i++){
+	 var sub = submissions[i]
+         if( sub.status ){
+	   stats.complete += 1
+	 }else{
+	   stats.incomplete += 1
+	 }
+       }
+       stats.percentComplete = Math.floor((stats.complete / submissions.length) * 100)
+       stats.percentIncomplete = Math.floor((stats.incomplete / submissions.length) * 100)
        res.render("instructor",{
 	 assignment: assignment,
-         submissions: submissions
+         submissions: submissions,
+	 stats: stats
        })
      })
    })
