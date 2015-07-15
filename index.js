@@ -43,10 +43,11 @@ app.get("/", function(req, res){
 
 app.get("/sessionize", function(req,res){
   req.session.accessToken = req.query.accessToken
+  var redirect = req.query.redirect || "/"
   var user = User(req.query.accessToken, function( user ){
     req.session.currentUser = user
     req.session.role = user.role
-    res.redirect("/")
+    res.redirect(redirect)
   })
 })
 
@@ -73,16 +74,20 @@ app.get("/assignments/:id", function(req,res){
      })
    })
  }else{
-   Assignment(req.params.id, function(assignment){
-     Submission.find(assignment.id, req.session.currentUser.id, function(submission){
-       res.render("form",{
-	 currentUser: req.session.currentUser,
-	 assignment: assignment,
-	 submission: submission,
-         success: req.query.success
-       }) 
+   if(req.session.currentUser){
+     Assignment(req.params.id, function(assignment){
+       Submission.find(assignment.id, req.session.currentUser.id, function(submission){
+	 res.render("form",{
+	   currentUser: req.session.currentUser,
+	   assignment: assignment,
+	   submission: submission,
+	   success: req.query.success
+	 }) 
+       })
      })
-   })
+   } else {
+     res.render("index")
+   }
  } 
 })
 

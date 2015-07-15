@@ -1,6 +1,6 @@
 window.addEventListener("message", function(event){
   console.log(event)
-  window.location = "/sessionize?accessToken=" + event.data
+  window.location = "/sessionize?accessToken=" + event.data + "&redirect=" + window.location.pathname
 })
 
 var formatees = document.querySelectorAll(".js-format-date")
