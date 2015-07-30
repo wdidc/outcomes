@@ -1,13 +1,14 @@
 var request = require("request")
+var env = require("../env")
 var Submission = {
   all: function(assignmentId, callback){
-    request("http://api.wdidc.org/assignments/"+assignmentId+"/submissions.json", function(err,res,body){
+    request("http://api.wdidc.org/assignments/"+assignmentId+"/submissions.json?api_token="+env.ASSIGNMENTS_API_TOKEN, function(err,res,body){
       var submissions = JSON.parse(body)
       callback(submissions)
     })
   },
   find: function(assignmentId, userId, callback){
-    request("http://api.wdidc.org/assignments/"+assignmentId+"/submissions.json", function(err,res,body){
+    request("http://api.wdidc.org/assignments/"+assignmentId+"/submissions.json?api_token="+env.ASSIGNMENTS_API_TOKEN, function(err,res,body){
       var subs = JSON.parse(body)
       for(var i = 0; i < subs.length; i++ ){
 	if(subs[i].github_id == userId) {
